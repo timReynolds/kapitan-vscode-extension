@@ -7,7 +7,7 @@ import { execAsync } from './utils'
 async function checkPythonVersion(python: string): Promise<boolean> {
   try {
     const [major, minor] = await getPythonVersion(python)
-    return major === 3 && minor > 10
+    return major === 3 && minor > 11
   } catch {
     return false
   }
@@ -38,20 +38,20 @@ export async function getPython(): Promise<string> {
 
   python = await window.showInputBox({
     ignoreFocusOut: true,
-    placeHolder: 'Enter a path to a python v3.6+.',
+    placeHolder: 'Enter a path to a python v3.12+.',
     prompt: 'This python will be used to create a virtual environment inside the extension directory.',
     validateInput: async (value: string) => {
       if (await checkPythonVersion(value)) {
         return null
       } else {
-        return 'Not a valid python 3.11+ path!'
+        return 'Not a valid python 3.12+ path!'
       }
     },
   })
 
   // User canceled the input
   if (python === 'undefined') {
-    throw new Error('Python 3.11+ is required!')
+    throw new Error('Python 3.12+ is required!')
   }
 
   if (IS_WIN) {
@@ -94,8 +94,7 @@ async function installRequirements(python: string, cwd: string) {
 export async function installLSWithProgress(context: ExtensionContext): Promise<string> {
   // Check if LS is already installed
   let venvPython = getPythonFromVenvPath()
-  if (existsSync(venvPython))
-  {
+  if (existsSync(venvPython)) {
     return Promise.resolve(venvPython)
   }
 

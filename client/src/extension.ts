@@ -90,7 +90,7 @@ export async function activate(context: ExtensionContext) {
         client = startLangServer(python, ["-m", "server"], cwd);
     }
 
-    context.subscriptions.push(client.start());
+    await client.start();
 }
 
 export function deactivate(): Thenable<void> {
