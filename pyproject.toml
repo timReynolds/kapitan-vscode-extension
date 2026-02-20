@@ -4,17 +4,20 @@ name = "venv"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-    "pygls",
-    "pyyaml"
+    "pygls>=2.0,<3",
+    "pyyaml~=6.0"
 ]
 
-[tool.uv]
-dev-dependencies = [
+[dependency-groups]
+dev = [
   "pre-commit",
   "ruff",
   "pyright",
   "pytest"
 ]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [tool.pyright]
 include = ["server"]
