@@ -1,5 +1,4 @@
 import { exec } from "child_process";
-import { readdir } from "fs";
 
 export async function execAsync(command: string, options: object = {}): Promise<string> {
     return new Promise((resolve, reject) => {

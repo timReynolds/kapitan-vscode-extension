@@ -90,9 +90,12 @@ export async function activate(context: ExtensionContext) {
         client = startLangServer(python, ["-m", "server"], cwd);
     }
 
-    context.subscriptions.push(client.start());
+    await client.start();
+    context.subscriptions.push(client);
 }
 
-export function deactivate(): Thenable<void> {
-    return client ? client.stop() : Promise.resolve();
+export async function deactivate(): Promise<void> {
+    if (client) {
+        await client.stop();
+    }
 }
