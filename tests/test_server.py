@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 from lsprotocol.types import Position
 from pygls.workspace.text_document import TextDocument
