@@ -31,7 +31,7 @@ async function createVirtualEnvironment(python: string, name: string, cwd: strin
 }
 
 export async function getPython(): Promise<string> {
-  let python = workspace.getConfiguration('python').get<string>('pythonPath', getPythonCrossPlatform())
+  let python = workspace.getConfiguration('python').get<string>('defaultInterpreterPath', getPythonCrossPlatform())
   if (await checkPythonVersion(python)) {
     return python
   }
