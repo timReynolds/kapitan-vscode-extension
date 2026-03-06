@@ -13,7 +13,7 @@ from lsprotocol.types import (
     TextDocumentPositionParams,
     TextDocumentSyncKind,
 )
-from pygls.server import LanguageServer
+from pygls.lsp.server import LanguageServer
 from pygls.workspace.text_document import TextDocument
 
 server = LanguageServer(
@@ -36,7 +36,7 @@ def process_settings(workspace_path: Path, settings: dict):
 def on_initialized(ls: LanguageServer, params: InitializedParams):
     workspace_path = Path(unquote(urlparse(ls.workspace.root_uri).path))
     requests = ConfigurationParams(items=[ConfigurationItem(section="kapitan")])
-    server.get_configuration(
+    server.workspace_configuration(
         requests,
         lambda list_of_settings: process_settings(workspace_path, list_of_settings[0]),
     )
